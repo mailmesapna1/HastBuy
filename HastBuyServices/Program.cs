@@ -1,5 +1,8 @@
 
-namespace HastBuyServices
+using HastBuyDAL;
+using HastBuyDAL.Models;
+
+namespace HastBuyServicesss
 {
     public class Program
     {
@@ -13,7 +16,9 @@ namespace HastBuyServices
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-
+            builder.Services.AddTransient<HastBuyDbContext>();
+            builder.Services.AddTransient<HastBuyRepository>(
+                c => new HastBuyRepository(c.GetRequiredService<HastBuyDbContext>()));
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
